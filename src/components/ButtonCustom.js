@@ -7,7 +7,8 @@ const MyButton = styled(Button)({
     backgroundColor: "#ae8c63",
     color: "#fff",
     padding: "16px 24px",
-    borderRadius: "10px"
+    borderRadius: "10px",
+    fontWeight : 600
 });
 
 export default function ButtonCustom(props) {

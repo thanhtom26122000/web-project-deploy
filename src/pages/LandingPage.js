@@ -4,6 +4,7 @@ import "../resources/scss/landing-page.scss";
 import logo from "../resources/images/logo.png"
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ListItem from "../components/ListItem";
+import { useHistory } from "react-router";
 const useStyles = makeStyles({
     accountIcon: {
         color: "white",
@@ -33,7 +34,8 @@ const useStyles = makeStyles({
     }
 })
 const LandingPage = ({ }) => {
-    const classes = useStyles()
+    const classes = useStyles();
+    const history = useHistory()
     return (
         <div style={{ backgroundColor: "#f7f7f7" }}>
             <header className="header">
@@ -41,7 +43,7 @@ const LandingPage = ({ }) => {
                 <Container>
                     <div className={classes.containerNavigation}>
                         <img src={logo} alt="logo" className={classes.logo}></img>
-                        <AccountCircleIcon className={classes.accountIcon}></AccountCircleIcon>
+                        <AccountCircleIcon onClick = {() => history.push("/sign-in")} className={classes.accountIcon}></AccountCircleIcon>
                     </div>
                 </Container >
                 <div className="header-title">
@@ -56,7 +58,7 @@ const LandingPage = ({ }) => {
                         labelId="demo-simple-select-required-label-1"
                         // value={age}
                         // onChange={handleChange}
-                        label="Age"
+                        label="Quận"
                         className={classes.select}
                     >
                         <MenuItem value={10}>Ten</MenuItem>
@@ -70,7 +72,7 @@ const LandingPage = ({ }) => {
                         labelId="demo-simple-select-required-label-2"
                         // value={age}
                         // onChange={handleChange}
-                        label="Age"
+                        label="Huyện"
                         className={classes.select}
 
                     >
@@ -85,7 +87,7 @@ const LandingPage = ({ }) => {
                         labelId="demo-simple-select-required-label-3"
                         // value={age}
                         // onChange={handleChange}
-                        label="Age"
+                        label="Loại"
                         className={classes.select}
                     >
                         <MenuItem value={10}>Ten</MenuItem>
@@ -93,13 +95,13 @@ const LandingPage = ({ }) => {
                         <MenuItem value={30}>Thirty</MenuItem>
                     </Select>
                 </FormControl>
-                <FormControl variant="outlined" style={{ margin: "8px" }}>
+                <FormControl variant="outlined" style={{ margin: "8px" }} >
                     <InputLabel id="demo-simple-select-required-label-3">Số giường ngủ</InputLabel>
                     <Select
                         labelId="demo-simple-select-required-label-3"
                         // value={age}
                         // onChange={handleChange}
-                        label="Age"
+                        label="Số giường ngủ"
                         className={classes.select}
                     >
                         <MenuItem value={10}>Ten</MenuItem>

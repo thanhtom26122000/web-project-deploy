@@ -5,19 +5,19 @@ import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutline
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 class ConfigInput {
     static listControlTabMember = [
-        { path: "/dashboard", name: "Thống kê", icon: <AssessmentOutlinedIcon /> },
-        { path: "/my-profile", name: "Thông tin cá nhân", icon: <AccountCircleOutlinedIcon /> },
-        { path: "/add-property", name: "Cho thuê nhà", icon: <AddBoxOutlinedIcon /> },
-        { path: "/favorites", name: "Yêu thích", icon: <FavoriteBorderOutlinedIcon /> },
-        { path: "/list-property", name: "Danh sách phòng", icon: <HomeOutlinedIcon></HomeOutlinedIcon> }
+        { path: "/account/dashboard", name: "Thống kê", icon: <AssessmentOutlinedIcon /> },
+        { path: "/account/my-profile", name: "Thông tin cá nhân", icon: <AccountCircleOutlinedIcon /> },
+        { path: "/account/add-property", name: "Cho thuê nhà", icon: <AddBoxOutlinedIcon /> },
+        { path: "/account/favorites", name: "Yêu thích", icon: <FavoriteBorderOutlinedIcon /> },
+        { path: "/account/list-property", name: "Danh sách phòng", icon: <HomeOutlinedIcon></HomeOutlinedIcon> }
     ]
     static listInforProfile = [
-        { label: "Họ", type: "text" },
-        { label: "Họ", type: "text" },
-        { label: "Email", type: "email" },
-        { label: "Họ", type: "text" },
-        { label: "Họ", type: "text" },
-        { label: "Họ", type: "text" },
+        { label: "Họ", type: "text", stateName: "firstName" },
+        { label: "Tên", type: "text", stateName: "lastName" },
+        { label: "Email", type: "email", stateName: "email" },
+        { label: "Số điện thoại", type: "number", stateName: "phone" },
+        { label: "Số chứng minh thư", type: "number", stateName: "cardId" },
+        { label: "Địa chỉ thường chú", type: "text", stateName: "address" },
     ]
     static listSocialMedia = [
         { label: "Facebook", type: "text" },
@@ -891,8 +891,6 @@ class ConfigInput {
         { label: "Lò vi sóng", type: "checkbox" },
         { label: "Bếp", type: "checkbox" },
         { label: "Máy giặt", type: "checkbox" },
-
-
     ]
 }
 export default ConfigInput

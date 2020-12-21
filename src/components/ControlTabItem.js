@@ -1,24 +1,20 @@
 import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import React from "react";
 import { useHistory, useLocation } from "react-router";
-interface controlTabItemProps {
-    icon?: any;
-    name: string;
-    path: string;
-}
-const ControlTabItem = (props: controlTabItemProps) => {
+
+const ControlTabItem = ({ path, icon, name }) => {
     const history = useHistory();
     const location = useLocation()
     return (
-        <ListItem button onClick={() => history.push(props.path)} style={{
-            backgroundColor: location.pathname === props.path ? "#ae8c63" : "",
-            color: location.pathname === props.path ? "#fff" : "#222",
+        <ListItem button onClick={() => history.push(path)} style={{
+            backgroundColor: location.pathname === path ? "#ae8c63" : "",
+            color: location.pathname === path ? "#fff" : "#222",
             borderRadius: "10px",
         }}>
-            <ListItemIcon style={{ color: location.pathname === props.path ? "#fff" : "", }}>
-                {props.icon}
+            <ListItemIcon style={{ color: location.pathname === path ? "#fff" : "", }}>
+                {icon}
             </ListItemIcon>
-            <ListItemText primary={props.name} />
+            <ListItemText primary={name} />
         </ListItem >
     )
 }
