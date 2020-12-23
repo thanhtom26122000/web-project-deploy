@@ -1,4 +1,4 @@
-import { Container, Grid, makeStyles } from "@material-ui/core";
+import { Container, Grid, makeStyles, useMediaQuery, useTheme } from "@material-ui/core";
 import React from "react";
 import test1 from "../resources/images/test1.jpg";
 import LocationOnIcon from '@material-ui/icons/LocationOn';
@@ -57,14 +57,16 @@ const useStyles = makeStyles({
 });
 const ListItem = () => {
     let temp = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
-    const classes = useStyles()
+    const classes = useStyles();
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.between(0, 780));
     return (
         <Container className={classes.container} >
             <h1 style={{ textAlign: "center", color: "#222222" }}>Một số bất động sản</h1>
             <Grid container spacing={6}>
                 {temp.map(el => {
                     return (
-                        <Grid item xs={4} key={el}>
+                        <Grid item xs={isMobile ? 12 : 4} key={el}>
                             <div className={classes.itemContainer}>
                                 <div style={{ width: "100%" }} className={classes.imageContainer}>
                                     <img src={test1} style={{ width: "100%", height: "auto" }} className={classes.img} alt="temp"></img>

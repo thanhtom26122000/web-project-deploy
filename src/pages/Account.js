@@ -7,26 +7,32 @@ import Profile from "../components/Profile";
 import "../resources/scss/account.scss";
 import AddProperty from "../components/AddProperty"
 import Favorites from "../components/Favorites";
-const Account = () => {
-    let { path } = useRouteMatch();
-    console.log("xxx ", path)
+import PrivateRoute from "../components/PrivateRoute";
+import AlertDialog from "../components/AlertDialog";
+const Account = ({ status, imagePath }) => {
+    const { url } = useRouteMatch()
+    console.log("xxx ", status, "path ", imagePath)
+    console.log()
+
     return (
         <>
-            <Header></Header>
+            <Header image={imagePath}></Header>
             <Grid container style={{ height: "calc(100% - 89px)" }}>
                 <Grid item xs={2} style={{ borderRight: "1px solid #E4E4E4" }} >
-                    <ControlTab></ControlTab>
+                    <ControlTab image={imagePath} ></ControlTab>
                 </Grid>
                 <Grid item xs={10}>
-                    <Switch>    
-                        <Route path={`/account/my-profile`} component={Profile}></Route>
-                        <Route path={`/account/add-property`} component={AddProperty}></Route>
+                    {!status && url === "/account/add-property" ? <AlertDialog></AlertDialog> : null}
+                    <Switch>
+                        <Route path={`/account/my-profile`} render={() => <Profile status={status}></Profile>} >
+
+                        </Route>
+                        <Route path="/account/add-property" component={AddProperty}></Route>
                         <Route path={`/account/favorites`} component={Favorites}></Route>
                     </Switch>
                 </Grid>
             </Grid>
         </>
-
     )
 }
 export default Account

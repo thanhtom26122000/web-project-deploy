@@ -15,14 +15,14 @@ class ConfigInput {
         { label: "Họ", type: "text", stateName: "firstName" },
         { label: "Tên", type: "text", stateName: "lastName" },
         { label: "Email", type: "email", stateName: "email" },
-        { label: "Số điện thoại", type: "number", stateName: "phone" },
+        { label: "Số điện thoại", type: "text", stateName: "phone" },
         { label: "Số chứng minh thư", type: "number", stateName: "cardId" },
         { label: "Địa chỉ thường chú", type: "text", stateName: "address" },
     ]
     static listSocialMedia = [
-        { label: "Facebook", type: "text" },
-        { label: "Instagram", type: "text" },
-        { label: "Zalo", type: "number" },
+        { label: "Facebook", type: "text", stateName: "facebook" },
+        { label: "Instagram", type: "text", stateName: "insta" },
+        { label: "Zalo", type: "number", stateName: "zalo" },
     ]
     static listInputChangePassowrd = [
         { label: "Mật khẩu cũ", type: "password" },
@@ -30,15 +30,15 @@ class ConfigInput {
         { label: "Nhập lại mật khẩu", type: "password" },
     ]
     static propertyDescriptionInput = [
-        { label: "*Tiêu đề (Bắt buộc)", type: "text" },
-        { label: "Miêu tả", type: "text" }
+        { label: "*Tiêu đề (Bắt buộc)", type: "text", nameState: "title" },
+        { label: "Miêu tả", type: "text", nameState: "description" }
     ]
     static propertyPrice = [
-        { label: "Giá", type: "number", nameState: "priceHouse" },
-        { label: "Tính theo", type: "select", value: ["Tháng", "Quý", "Năm"], nameState: "perMonth" },
-        { label: "Tiền điện(Đồng/kWh)", type: "number", nameState: "priceElectric" },
-        { label: "Tiền nước (Đồng/m3)", type: "number", nameState: "priceWater" },
-        { label: "Loại", type: "select", value: ["Phòng trọ", "Chung cư mini", "Nhà nguyên căn", "Chung cư nguyên căn"], nameState: "type" }
+        { label: "Giá", type: "number", nameState: "price" },
+        { label: "Tính theo", type: "select", value: ["Tháng", "Quý", "Năm"], nameState: "pricePer" },
+        { label: "Tiền điện(Đồng/kWh)", type: "number", nameState: "electricPrice" },
+        { label: "Tiền nước (Đồng/m3)", type: "number", nameState: "waterPrice" },
+        { label: "Loại", type: "select", value: ["Phòng trọ", "Chung cư mini", "Nhà nguyên căn", "Chung cư nguyên căn"], nameState: "typeRealEstate" }
     ]
     static listState = ["An Giang", "Bà Rịa – Vũng Tàu", "Bình Dương", "Bình Phước", "Bình Thuận", "Bình Định", "Bạc Liêu", "Bắc Giang", "Bắc Kạn", "Bắc Ninh", "Bến Tre", "Cao Bằng", "Cà Mau", "Cần Thơ", "Gia Lai", "Hà Giang", "Hà Nam", "Hà Nội", "Hà Tĩnh", "Hòa Bình", "Hưng Yên", "Hải Dương", "Hải Phòng", "Hậu Giang", "Hồ Chí Minh", "Khánh Hòa", "Kiên Giang", "Kon Tum", "Lai Châu", "Long An", "Lào Cai", "Lâm Đồng", "Lạng Sơn", "Nam Định", "Nghệ An", "Ninh Bình", "Ninh Thuận", "Phú Thọ", "Phú Yên", "Quảng Bình", "Quảng Nam", "Quảng Ngãi", "Quảng Ninh", "Quảng Trị", "Sóc Trăng", "Sơn La", "Thanh Hóa", "Thái Bình", "Thái Nguyên", "Thừa Thiên - Huế", "Tiền Giang", "Trà Vinh", "Tuyên Quang", "Tây Ninh", "Vĩnh Long", "Vĩnh Phúc", "Yên Bái", "Điện Biên", "Đà Nẵng", "Đăk Nông", "Đắk Lắk", "Đồng Nai", "Đồng Tháp"]
     static mapDistrict = {
@@ -874,11 +874,11 @@ class ConfigInput {
         ]
     }
     static listDetails = [
-        { label: "Diện tích (m2)", type: "number", },
-        { label: "Số phòng Ngủ", type: "number" },
-        { label: "Số phòng Tắm", type: "number" },
-        { label: "Chung chủ", type: "select", value: ["Có", "Không"] },
-        { label: "Chi tiết phòng bếp", type: "select", value: ["Khu bếp riêng", "Không được nấu ăn", "khu bếp chung"] }
+        { label: "Diện tích (m2)", type: "number", nameState: "size" },
+        { label: "Số phòng Ngủ", type: "number", nameState: "bedroom" },
+        { label: "Số phòng Tắm", type: "number", nameState: "bathroom" },
+        { label: "Chung chủ", type: "select", value: ["Có", "Không"], nameState: "isPrivate" },
+        { label: "Chi tiết phòng bếp", type: "select", value: ["Khu bếp riêng", "Không được nấu ăn", "khu bếp chung"], nameState: "kitchenDetail" }
     ]
     static features = [
         { label: "Nóng lạnh", type: "checkbox" },

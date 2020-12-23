@@ -8,9 +8,9 @@ const MyButton = styled(Button)({
     color: "#fff",
     padding: "16px 24px",
     borderRadius: "10px",
-    fontWeight : 600
+    fontWeight: 600
 });
 
 export default function ButtonCustom(props) {
-    return <MyButton variant = "contained">{props.children}</MyButton>;
+    return <MyButton variant="contained" type={props.type} onClick={props.click}>{props.children}</MyButton>;
 }

@@ -1,11 +1,11 @@
 import React from "react";
 import { Route, Redirect } from "react-router";
-const PrivateRoute = ({ component: Component, auth, ...rest }) => (
+const PrivateRoute = ({ component: Component, auth, pathRedirect, imagePath, status, ...rest }) => (
     <Route {...rest} render={props => (
         auth ? (
-            <Component {...props} />
+            <Component {...props} status={status} imagePath={imagePath} />
         ) : (
-                <Redirect to="/sign-in" />
+                <Redirect to={pathRedirect} />
             )
     )} />
 )

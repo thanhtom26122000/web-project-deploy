@@ -1,7 +1,7 @@
 import axios from "axios";
 import Config from "../Config";
 
-const callApi = ({ method, params, url, data, checkAuth, token }) => {
+const callApi = ({ method, params, url, data, checkAuth, token, submit }) => {
     return new Promise((resolve, reject) => {
         axios({
             method: method ? method : "post",
@@ -10,7 +10,8 @@ const callApi = ({ method, params, url, data, checkAuth, token }) => {
             url: url,
             data: data ? data : null,
             headers: checkAuth ? {
-                'Authorization': `Bearer ${token}`
+                'Authorization': `Bearer ${token}`,
+                "Content-type": submit ? 'multipart/form-data' : "application/json"
             } : null
         })
             .then(response => {

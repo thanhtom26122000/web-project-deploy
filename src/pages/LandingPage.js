@@ -5,6 +5,7 @@ import logo from "../resources/images/logo.png"
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ListItem from "../components/ListItem";
 import { useHistory } from "react-router";
+import Config from "../Config"
 const useStyles = makeStyles({
     accountIcon: {
         color: "white",
@@ -33,7 +34,8 @@ const useStyles = makeStyles({
         minWidth: "200px"
     }
 })
-const LandingPage = ({ }) => {
+const LandingPage = ({ auth }) => {
+    console.log("xx auth", auth)
     const classes = useStyles();
     const history = useHistory()
     return (
@@ -43,7 +45,7 @@ const LandingPage = ({ }) => {
                 <Container>
                     <div className={classes.containerNavigation}>
                         <img src={logo} alt="logo" className={classes.logo}></img>
-                        <AccountCircleIcon onClick = {() => history.push("/sign-in")} className={classes.accountIcon}></AccountCircleIcon>
+                        {auth ? <img src={Config.BASE_URL + "/api/user/images/default_user_small.png"} alt="avatar" style={{ height: "45px", width: "45px", borderRadius: "50%" }} /> : <AccountCircleIcon onClick={() => history.push("/sign-in")} className={classes.accountIcon}></AccountCircleIcon>}
                     </div>
                 </Container >
                 <div className="header-title">
@@ -111,7 +113,7 @@ const LandingPage = ({ }) => {
                 </FormControl>
             </Container>
             <ListItem></ListItem>
-        </div>
+        </div >
 
     )
 }

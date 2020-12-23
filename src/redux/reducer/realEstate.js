@@ -1,15 +1,12 @@
 import * as Types from "../actions/type"
 const initState = {
-    isLogin: false,
     loading: false,
     error: null,
-    isLoaded: false,
-    imagePath: "",
-    status: "",
+    listRealEstate: [],
 }
 const authReducer = (state = initState, action) => {
     switch (action.type) {
-        case Types.CHECK_IS_LOG_IN: {
+        case Types.GET_LIST_LADNING_PAGE: {
             return { ...state, loading: true }
         }
         case Types.SET_IS_AUTH: {

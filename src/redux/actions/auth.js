@@ -10,3 +10,10 @@ export const setIsAuth = (isAuth) => {
         isAuth: isAuth
     }
 }
+export const setImagePathAndStatus = (object) => {
+    return {
+        type: Types.SET_IMAGE_PATH_AND_STATUS,
+        imagePath: object.imagePath ? object.imagePath : "",
+        status: object.activeStatus
+    }
+}

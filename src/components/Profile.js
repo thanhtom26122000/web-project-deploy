@@ -5,7 +5,8 @@ import ConfigInput from "../ConfigInput";
 import { getUserInfo } from "../redux/actions/user";
 import ButtonCustom from "./ButtonCustom";
 import Modal from "./Modal";
-
+import axios from "axios";
+import { callApi } from "../axios";
 const useStyles = makeStyles({
     textField: {
         "& .MuiOutlinedInput-root": {
@@ -17,9 +18,12 @@ const useStyles = makeStyles({
         padding: "40px",
         backgroundColor: "#fff",
         borderRadius: "20px"
+    },
+    input: {
+        display: "none"
     }
 })
-const Profile = ({ getUserInfo = () => { }, userReducer }) => {
+const Profile = ({ getUserInfo = () => { }, userReducer, status }) => {
     const classes = useStyles();
     const [input, setInput] = useState({
         email: "",
@@ -31,6 +35,7 @@ const Profile = ({ getUserInfo = () => { }, userReducer }) => {
         facebook: "",
         zalo: "",
         insta: "",
+        image: null
     })
     useEffect(() => {
         if (userReducer.infoUser) {
@@ -48,52 +53,78 @@ const Profile = ({ getUserInfo = () => { }, userReducer }) => {
     if (userReducer.loading) {
         return <Modal show={true}></Modal>
     }
-    console.log("123 input", input)
+    const handleUpdateProfile = (event) => {
+        event.preventDefault();
+        let form = new FormData();
+        for (let item in input) {
+            form.append(`${item}`, input[item])
+        }
+        return callApi({ url: "/api/user/update-profile", data: form, checkAuth: true, token: localStorage.getItem("_user") })
+    }
+    console.log("123 input", status)
     return (
         <div style={{ padding: "20px 40px 0px 40px" }}>
             <h2 style={{ fontWeight: "bold", fontSize: "40px" }}>Thông tin cá nhân</h2>
-            <Grid container style={{ marginBottom: "60px" }}>
-                <Grid item xs={8} className={classes.rightTabContainer}>
-                    <div style={{ marginBottom: "20px", fontSize: "18px", fontWeight: 500 }}>Thông tin liên lạc</div>
-                    <Grid container>
-                        {ConfigInput.listInforProfile.map(el => (
-                            <Grid item xs={6} key={el.label}>
-                                <TextField variant={el.label === "Email" ? "filled" : "outlined"}
-                                    label={el.label}
-                                    type={el.type}
-                                    value={input[el.stateName] ? input[el.stateName] : ""}
-                                    disabled={el.label === "Email" ? true : false}
-                                    className={classes.textField}
-                                    style={{ width: "90%" }}
-                                    onChange={(event) => handleOnChange(event, el.stateName)}>
-                                </TextField>
-                            </Grid>
-                        ))}
+            <form encType="multipart/form-data" onSubmit={(event) => handleUpdateProfile(event)}>
+                <Grid container style={{ marginBottom: "60px" }}>
+                    <Grid item xs={8} className={classes.rightTabContainer}>
+                        <div style={{ marginBottom: "20px", fontSize: "18px", fontWeight: 500 }}>Thông tin liên lạc</div>
+                        <Grid container>
+                            {ConfigInput.listInforProfile.map(el => (
+                                <Grid item xs={6} key={el.label}>
+                                    <TextField variant="outlined"
+                                        label={el.label}
+                                        type={el.type}
+                                        value={input[el.stateName] ? input[el.stateName] : ""}
+                                        disabled={status ? true : false}
+                                        className={classes.textField}
+                                        style={{ width: "90%" }}
+                                        onChange={(event) => handleOnChange(event, el.stateName)}>
+                                    </TextField>
+                                </Grid>
+                            ))}
+                        </Grid>
+                        <div style={{ marginBottom: "20px", fontSize: "18px", fontWeight: 500 }}>Mạng xã hội</div>
+                        <Grid container>
+                            {ConfigInput.listSocialMedia.map(el => (
+                                <Grid item xs={6} key={el.label}>
+                                    <TextField variant="outlined"
+                                        label={el.label}
+                                        type={el.type}
+                                        value={input[el.stateName] ? input[el.stateName] : ""}
+                                        onChange={(event) => handleOnChange(event, el.stateName)}
+                                        className={classes.textField}
+                                        style={{ width: "90%" }}>
+                                    </TextField>
+                                </Grid>
+                            ))}
+                        </Grid>
+                        <ButtonCustom type="submit" >Update Profile</ButtonCustom>
                     </Grid>
-                    <div style={{ marginBottom: "20px", fontSize: "18px", fontWeight: 500 }}>Mạng xã hội</div>
-                    <Grid container>
-                        {ConfigInput.listSocialMedia.map(el => (
-                            <Grid item xs={6} key={el.label}>
-                                <TextField variant="outlined"
-                                    label={el.label}
-                                    type={el.type}
-                                    value={input[el.stateName] ? input[el.stateName] : ""}
-                                    onChange={(event) => handleOnChange(event, el.stateName)}
-                                    className={classes.textField}
-                                    style={{ width: "90%" }}>
-                                </TextField>
-                            </Grid>
-                        ))}
+                    <Grid item xs={3} style={{ backgroundColor: "#fff", marginLeft: "auto", marginRight: "auto", borderRadius: "20px", height: "100%", padding: "16px" }}>
+                        <input
+                            accept="image/*"
+                            className={classes.input}
+                            id="button-file"
+                            type="file"
+                            onChange={(event) => {
+                                setInput({ ...input, image: event.target.files[0] })
+                            }}
+                        />
+                        <div style={{ margin: "8px 0px 16px 8px", fontSize: "18px", fontWeight: 600 }}>Ảnh</div>
+
+                        <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                            <img src="https://demo5.wpresidence.net/wp-content/themes/wpresidence/img/default_user.png" alt="avatar-3" style={{ marginBottom: "32px", width: "100%", height: "auto" }}></img>
+                            <label htmlFor="button-file">
+                                <Button component="div" style={{ textTransform: "none", backgroundColor: "#ae8c63", color: "#fff", padding: "16px 24px", borderRadius: "10px", width: "100%" }}
+                                    variant="contained" >Tải ảnh lên</Button>
+                            </label>
+                            {input.image ? <div style={{ margin: "20px 40px", display: "flex", flexDirection: "column" }}>{input.image.name}</div> : null}
+                        </div>
                     </Grid>
-                    <ButtonCustom>Update Profile</ButtonCustom>
                 </Grid>
-                <Grid item xs={3} style={{ backgroundColor: "#fff", marginLeft: "auto", marginRight: "auto", borderRadius: "20px", height: "100%", padding: "16px" }}>
-                    <div style={{ margin: "8px 0px 16px 8px", fontSize: "18px", fontWeight: 600 }}>Ảnh</div>
-                    <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
-                        <img src="https://demo5.wpresidence.net/wp-content/themes/wpresidence/img/default_user.png" alt="avatar-3" style={{ marginBottom: "32px", width: "100%", height: "auto" }}></img>
-                        <Button style={{ textTransform: "none", backgroundColor: "#ae8c63", color: "#fff", padding: "16px 24px", borderRadius: "10px" }} variant="contained" >Tải ảnh lên</Button>
-                    </div>
-                </Grid>
+            </form>
+            <Grid container >
                 <Grid item xs={8} style={{ padding: "32px", backgroundColor: "#fff", borderRadius: "20px", marginTop: "24px" }}>
                     <div style={{ marginBottom: "20px", fontSize: "18px", fontWeight: 500 }}>Thông tin liên lạc</div>
                     <Grid container >

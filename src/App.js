@@ -14,7 +14,7 @@ const App = ({ checkIsLogIn = () => { }, authReducer }) => {
     useEffect(() => {
         checkIsLogIn()
     }, [checkIsLogIn])
-    console.log(authReducer, "xxx loading")
+    console.log(authReducer.imagePath, "xxx loading")
     if (!authReducer.isLoaded || authReducer.loading) {
         return (
             <Modal show={true}></Modal>
@@ -23,8 +23,10 @@ const App = ({ checkIsLogIn = () => { }, authReducer }) => {
     return (
         <div style={{ height: "100%" }}>
             <Switch>
-                <Route exact path="/" component={LandingPage}></Route>
-                <PrivateRoute path="/account/:child" component={Account} auth={authReducer.isLogin}></PrivateRoute>
+                <Route exact path="/">
+                    <LandingPage auth={authReducer.isLogin}></LandingPage>
+                </Route>
+                <PrivateRoute path="/account/:child" pathRedirect="/sign-in" component={Account} auth={authReducer.isLogin} imagePath={authReducer.imagePath} status={authReducer.status}></PrivateRoute>
                 <AuthRoute exact path="/sign-in" component={SignIn} auth={authReducer.isLogin}></AuthRoute>
                 <AuthRoute exact path="/sign-up" component={SignUp} auth={authReducer.isLogin}></AuthRoute>
             </Switch>
