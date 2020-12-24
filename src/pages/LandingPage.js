@@ -6,7 +6,6 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ListItem from "../components/ListItem";
 import { useHistory } from "react-router";
 import Config from "../Config"
-import ReactGA from 'react-ga';
 import { useEffect } from "react";
 const useStyles = makeStyles({
     accountIcon: {

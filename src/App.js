@@ -9,6 +9,7 @@ import AuthRoute from './components/AuthRoute';
 import { checkIsLogIn } from './redux/actions/auth';
 import { connect } from 'react-redux';
 import Modal from "./components/Modal"
+import ReactGA from 'react-ga';
 
 const App = ({ checkIsLogIn = () => { }, authReducer }) => {
     useEffect(() => {
