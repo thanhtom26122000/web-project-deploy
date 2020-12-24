@@ -14,6 +14,9 @@ const App = ({ checkIsLogIn = () => { }, authReducer }) => {
     useEffect(() => {
         checkIsLogIn()
     }, [checkIsLogIn])
+    useEffect(() => {
+        ReactGA.initialize('G-9J6B05J6M9');
+    })
     if (!authReducer.isLoaded || authReducer.loading) {
         return (
             <Modal show={true}></Modal>

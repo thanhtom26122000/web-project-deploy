@@ -40,9 +40,7 @@ const LandingPage = ({ auth }) => {
     console.log("xx auth", auth)
     const classes = useStyles();
     const history = useHistory()
-    useEffect(() => {
-        ReactGA.initialize('G-9J6B05J6M9');
-    })
+
     return (
         <div style={{ backgroundColor: "#f7f7f7" }}>
             <header className="header">
