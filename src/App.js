@@ -10,13 +10,12 @@ import { checkIsLogIn } from './redux/actions/auth';
 import { connect } from 'react-redux';
 import Modal from "./components/Modal"
 import ReactGA from 'react-ga';
-
+ReactGA.initialize("G-9J6B05J6M9");
 const App = ({ checkIsLogIn = () => { }, authReducer }) => {
     useEffect(() => {
         checkIsLogIn()
     }, [checkIsLogIn])
     useEffect(() => {
-        ReactGA.initialize('G-9J6B05J6M9');
         console.log("123")
     })
     if (!authReducer.isLoaded || authReducer.loading) {
