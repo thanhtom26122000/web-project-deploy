@@ -17,7 +17,7 @@ const App = ({ checkIsLogIn = () => { }, authReducer }) => {
     }, [checkIsLogIn])
     useEffect(() => {
         console.log("123")
-        ReactGA.pageview("/home")
+        ReactGA.pageview("/")
     })
     if (!authReducer.isLoaded || authReducer.loading) {
         return (
