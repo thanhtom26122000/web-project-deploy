@@ -6,6 +6,8 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ListItem from "../components/ListItem";
 import { useHistory } from "react-router";
 import Config from "../Config"
+import ReactGA from 'react-ga';
+import { useEffect } from "react";
 const useStyles = makeStyles({
     accountIcon: {
         color: "white",
@@ -38,6 +40,9 @@ const LandingPage = ({ auth }) => {
     console.log("xx auth", auth)
     const classes = useStyles();
     const history = useHistory()
+    useEffect(() => {
+        ReactGA.initialize('UA-000000-01');
+    })
     return (
         <div style={{ backgroundColor: "#f7f7f7" }}>
             <header className="header">
@@ -117,4 +122,5 @@ const LandingPage = ({ auth }) => {
 
     )
 }
-export default LandingPage 
+
+export default LandingPage

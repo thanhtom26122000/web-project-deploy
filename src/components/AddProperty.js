@@ -6,6 +6,11 @@ import ButtonCustom from "./ButtonCustom";
 import addFile from "../resources/images/add-file.svg";
 import { addString, convertNumber } from "../utils"
 import { callApi } from "../axios";
+import DateFnsUtils from "@date-io/date-fns";
+import {
+    MuiPickersUtilsProvider,
+    KeyboardDatePicker
+} from "@material-ui/pickers";
 const useStyles = makeStyles({
     textField: {
         "& .MuiOutlinedInput-root": {
@@ -79,7 +84,7 @@ const AddProperty = ({ status }) => {
                 form.append(`${item}`, input[item])
             }
         }
-        return callApi({ url: "/api/real-state/add-property", data: form, checkAuth: true, token: localStorage.getItem("_user") })
+        return callApi({ url: "/api/real-estate/add-property", data: form, checkAuth: true, token: localStorage.getItem("_user") })
     }
     return (
         <form encType="multipart/form-data" onSubmit={(event) => handleOnSubmit(event)}>
@@ -161,6 +166,7 @@ const AddProperty = ({ status }) => {
                                     label="Địa chỉ chi tiết"
                                     type="text"
                                     className={classes.textField}
+                                    value={input["addressDetail"]}
                                     style={{ width: "90%" }}>
                                 </TextField>
                             </Grid>
@@ -236,6 +242,17 @@ const AddProperty = ({ status }) => {
                                     rows={10}
                                     style={{ width: "95%" }}>
                                 </TextField>
+                                <MuiPickersUtilsProvider variant="outlined" utils={DateFnsUtils}>
+                                    <KeyboardDatePicker
+                                        margin="normal"
+                                        label="Date picker dialog"
+                                        format="MM/dd/yyyy"
+                                        // error={true}
+                                    // value={selectedDate}
+                                    // onChange={handleDateChange}
+                                    // variant="outlined"
+                                    />
+                                </MuiPickersUtilsProvider>
                             </Grid>
                         </Grid>
                         <ButtonCustom type="submit" >Save</ButtonCustom>

@@ -1,35 +1,66 @@
 import { call, put, take } from 'redux-saga/effects';
 import * as Types from "../actions/type";
 import { callApi } from "../../axios/index"
-import { setImagePathAndStatus, setIsAuth } from '../actions/action';
-function checkAuthApi(token) {
-    return callApi({ url: "/api/user/check-auth", token: token, checkAuth: true })
+import { addFavoritesFailed, addFavoritesSuccess, getListFavoritesFailed, getListFavoritesSuccess, getListLandingPageFailed, getListLandingPageSuccess } from '../actions/action';
+function getListLandingPageApi() {
+    return callApi({ url: "/api/real-estate/get-list-landingpage", method: "get" })
 }
-function* checkIsLoginSaga() {
+function addFavoritesApi(token, id) {
+    return callApi({ url: "/api/user/add-favorites", token: token, checkAuth: true, data: { id: id } })
+}
+function getListFavoritesApi(token) {
+    return callApi({ url: "/api/real-estate/get-list-favorites", token: token, checkAuth: true })
+}
+function* getListLandingPageSaga() {
     while (true) {
         try {
-            let action = yield take(Types.CHECK_IS_LOG_IN);
-            let token = localStorage.getItem("_user");
-            if (token) {
-                console.log("123 running")
-                let temp = yield call(checkAuthApi, token);
-                console.log("xxx123", temp)
-                if (temp.message !== "success") {
-                    yield put(setIsAuth(false))
-                } else {
-                    yield put(setIsAuth(true));
-                    yield put(setImagePathAndStatus(temp))
-                }
-            } else {
-                yield put(setIsAuth(false))
+            let action = yield take(Types.GET_LIST_LADNING_PAGE);
+            let listRealEstate = yield call(getListLandingPageApi);
+            if (listRealEstate) {
+                yield put(getListLandingPageSuccess(listRealEstate))
             }
         }
         catch (e) {
-            yield put(setIsAuth(false))
+            yield put(getListLandingPageFailed(e))
         }
     }
-
 }
-export const authSaga = [
-    checkIsLoginSaga(),
+function* addFavorites() {
+    while (true) {
+        try {
+            let action = yield take(Types.ADD_FAVORITES);
+            let id = action.id
+            console.log("id", id)
+            let token = localStorage.getItem("_user");
+            if (id && token) {
+                let response = yield call(addFavoritesApi, token, id)
+                if (response === "success") {
+                    yield put(addFavoritesSuccess(id))
+                }
+            }
+        }
+        catch (e) {
+            yield put(addFavoritesFailed(e))
+        }
+    }
+}
+function* getListFavorites() {
+    while (true) {
+        try {
+            let action = yield take(Types.GET_LIST_FAVORITES);
+            let token = localStorage.getItem("_user");
+            let response = yield call(getListFavoritesApi, token)
+            if (response && response.length > 0) {
+                yield put(getListFavoritesSuccess(response))
+            }
+        }
+        catch (error) {
+            yield put(getListFavoritesFailed(error))
+        }
+    }
+}
+export const realEstateSaga = [
+    getListLandingPageSaga(),
+    addFavorites(),
+    getListFavorites()
 ]

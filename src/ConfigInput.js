@@ -11,6 +11,12 @@ class ConfigInput {
         { path: "/account/favorites", name: "Yêu thích", icon: <FavoriteBorderOutlinedIcon /> },
         { path: "/account/list-property", name: "Danh sách phòng", icon: <HomeOutlinedIcon></HomeOutlinedIcon> }
     ]
+    static listControlTabAdmin = [
+        { path: "/account/admin/list-account", name: "Xác nhận tài khoản", icon: <AccountCircleOutlinedIcon /> },
+        { path: "/account/admin/list-real-estate", name: "Duyệt các phòng", icon: <HomeOutlinedIcon></HomeOutlinedIcon> },
+        { path: "/account/admin/add-property", name: "Cho thuê nhà", icon: <AddBoxOutlinedIcon /> },
+
+    ]
     static listInforProfile = [
         { label: "Họ", type: "text", stateName: "firstName" },
         { label: "Tên", type: "text", stateName: "lastName" },

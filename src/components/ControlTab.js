@@ -3,7 +3,7 @@ import { List } from "@material-ui/core";
 import ControlTabItem from "./ControlTabItem";
 import Config from "../Config";
 import ConfigInput from "../ConfigInput";
-const ControlTab = ({ image }) => {
+const ControlTab = ({ image, typeAccount }) => {
 
     return (
         <div style={{ marginTop: "24px" }}>
@@ -13,9 +13,18 @@ const ControlTab = ({ image }) => {
             </div>
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "24px" }}>
                 <List component="nav">
-                    {ConfigInput.listControlTabMember.map(el => {
-                        return (<ControlTabItem icon={el.icon} name={el.name} key={el.name} path={el.path}></ControlTabItem>)
-                    })}
+                    {typeAccount === 1 ?
+                        (
+                            ConfigInput.listControlTabMember.map(el => {
+                                return (<ControlTabItem icon={el.icon} name={el.name} key={el.name} path={el.path}></ControlTabItem>)
+                            })
+                        ) :
+                        (
+                            ConfigInput.listControlTabAdmin.map(el => {
+                                return <ControlTabItem icon={el.icon} name={el.name} key={el.name} path={el.path}></ControlTabItem>
+                            })
+                        )
+                    }
                 </List>
             </div>
         </div>

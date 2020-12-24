@@ -27,3 +27,20 @@ export const getAdminInfoSuccess = (result) => {
         result: result
     }
 }
+export const getListAccount = () => {
+    return {
+        type: Types.GET_LIST_ACCOUNT,
+    }
+}
+export const getListAccountSuccess = (result) => {
+    return {
+        type: Types.GET_LIST_ACCOUNT_SUCCESS,
+        listAccout: result
+    }
+}
+export const getListAccountFailed = (error) => {
+    return {
+        type: Types.GET_LIST_ACCOUNT_FAILED,
+        error: error
+    }
+}

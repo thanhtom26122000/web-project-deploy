@@ -7,32 +7,46 @@ import Profile from "../components/Profile";
 import "../resources/scss/account.scss";
 import AddProperty from "../components/AddProperty"
 import Favorites from "../components/Favorites";
-import PrivateRoute from "../components/PrivateRoute";
 import AlertDialog from "../components/AlertDialog";
-const Account = ({ status, imagePath }) => {
+import { connect } from "react-redux";
+import ListPropery from "../components/ListProperty";
+import ListAccount from "../components/ListAccount";
+const Account = ({ userReducer }) => {
     const { url } = useRouteMatch()
-    console.log("xxx ", status, "path ", imagePath)
-    console.log()
-
+    console.log("123 userReducer", userReducer)
+    // console.log(p)
+    console.log(userReducer.typeAccount)
     return (
         <>
-            <Header image={imagePath}></Header>
+            <Header image={userReducer.imagePath}></Header>
             <Grid container style={{ height: "calc(100% - 89px)" }}>
                 <Grid item xs={2} style={{ borderRight: "1px solid #E4E4E4" }} >
-                    <ControlTab image={imagePath} ></ControlTab>
+                    <ControlTab image={userReducer.imagePath} typeAccount={userReducer.typeAccount} ></ControlTab>
                 </Grid>
                 <Grid item xs={10}>
-                    {!status && url === "/account/add-property" ? <AlertDialog></AlertDialog> : null}
-                    <Switch>
-                        <Route path={`/account/my-profile`} render={() => <Profile status={status}></Profile>} >
-
-                        </Route>
-                        <Route path="/account/add-property" component={AddProperty}></Route>
-                        <Route path={`/account/favorites`} component={Favorites}></Route>
-                    </Switch>
+                    {!userReducer.status && url === "/account/add-property" ? <AlertDialog></AlertDialog> : null}
+                    {userReducer.typeAccount === 1 ? (
+                        <Switch>
+                            <Route path={`/account/my-profile`} render={() => <Profile status={userReducer.status}></Profile>} >
+                            </Route>
+                            <Route path="/account/add-property" component={AddProperty}></Route>
+                            <Route exact path="/account/favorites" component={Favorites}></Route>
+                            <Route path="/account/list-property" component={ListPropery}></Route>
+                        </Switch>
+                    ) :
+                        (
+                            <Switch>
+                                <Route path="/account/admin/add-property" component={AddProperty}></Route>
+                                <Route path="/account/admin/list-account" component={ListAccount}></Route>
+                                <Route path="/account/admin/list-real-estate" component={AddProperty}></Route>
+                            </Switch>
+                        )}
                 </Grid>
             </Grid>
         </>
     )
 }
-export default Account
+const mapStateToProps = (state) => ({
+    userReducer: state.userReducer
+})
+export default connect(mapStateToProps, null)(Account)
