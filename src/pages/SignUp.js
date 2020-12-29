@@ -75,7 +75,7 @@ const SignUp = () => {
 
     }
     const handleResign = () => {
-        return axios.post("http://localhost:8080/api/user/sign-up", input)
+        return axios.post("https://ancient-plateau-95110.herokuapp.com/api/user/sign-up", input)
             .then((res) => {
                 console.log("xxxxx status", res.data)
                 if (res.status === 200) {
