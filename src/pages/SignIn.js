@@ -67,7 +67,7 @@ const SignIn = ({ setIsAuth }) => {
         })
     }
     const handleSignIn = () => {
-        return axios.post("https://ancient-plateau-95110.herokuapp.com/api/user/sign-in", input, { withCredentials: true })
+        return axios.post("https://fathomless-hamlet-72428.herokuapp.com/api/user/sign-in", input, { withCredentials: true })
             .then(res => {
                 if (res.status === 200) {
                     localStorage.setItem("_user", res.data);
