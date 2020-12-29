@@ -3,7 +3,8 @@ const initState = {
     loading: false,
     error: null,
     listRealEstate: [],
-    listFavorites: []
+    listFavorites: [],
+    property: {}
 }
 const realEstateReducer = (state = initState, action) => {
     switch (action.type) {
@@ -35,6 +36,33 @@ const realEstateReducer = (state = initState, action) => {
             return { ...state, loading: false, listRealEstate: [...action.listRealEstate] }
         }
         case Types.GET_LIST_FAVORITES_FAILED: {
+            return { ...state, loading: false, error: action.error }
+        }
+        case Types.GET_LIST_REAL_ESTATES: {
+            return { ...state, loading: true }
+        }
+        case Types.GET_LIST_REAL_ESTATES_SUCCESS: {
+            return { ...state, listRealEstate: [...action.listRealEstate], loading: false, error: null }
+        }
+        case Types.GET_LIST_REAL_ESTATES_FAILED: {
+            return { ...state, loading: false, error: action.error }
+        }
+        case Types.GET_PROPERTY: {
+            return { ...state, loading: true }
+        }
+        case Types.GET_PROPERTY_SUCCESS: {
+            return { ...state, loading: false, error: null, property: { ...action.property } }
+        }
+        case Types.GET_PROPERTY_FAILED: {
+            return { ...state, loading: false, error: action.error }
+        }
+        case Types.SEARCH_PROPERTY: {
+            return { ...state, loading: true }
+        }
+        case Types.SEARCH_PROPERTY_SUCCESS: {
+            return { ...state, loading: false, listRealEstate: [...action.listRealEstate], error: null }
+        }
+        case Types.SEARCH_PROPERTY_FAILED: {
             return { ...state, loading: false, error: action.error }
         }
         default: return state

@@ -26,7 +26,7 @@ const Header = ({ image }) => {
             </div>
             <div style={{ display: "flex", marginLeft: "auto", marginRight: "20px", alignItems: "center", position: "relative", cursor: "pointer" }}>
                 <div className={classes.countNotify}>1</div>
-                <img src={image ? (Config.BASE_URL + "/api/user" + image) : "https://demo5.wpresidence.net/wp-content/themes/wpresidence/img/default_user_small.png"} alt="avatar" style={{ width: "45px", height: "45px", borderRadius: "50%", border: "1px solid red" }}></img>
+                <img src={image ? (Config.BASE_URL + image) : "https://demo5.wpresidence.net/wp-content/themes/wpresidence/img/default_user_small.png"} alt="avatar" style={{ width: "45px", height: "45px", borderRadius: "50%", border: "1px solid red" }}></img>
             </div>
         </div>
     )

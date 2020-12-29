@@ -1,4 +1,4 @@
-import { Container, makeStyles, Grid, FormControl, InputLabel, Select, MenuItem } from "@material-ui/core";
+import { Container, makeStyles, Grid, FormControl, InputLabel, Select, MenuItem, TextField, Slider, Button, Slide } from "@material-ui/core";
 import React from "react";
 import "../resources/scss/landing-page.scss";
 import logo from "../resources/images/logo.png"
@@ -7,6 +7,8 @@ import ListItem from "../components/ListItem";
 import { useHistory } from "react-router";
 import Config from "../Config"
 import { useEffect } from "react";
+import ButtonCustom from "../components/ButtonCustom";
+import Search from "../components/Search";
 const useStyles = makeStyles({
     accountIcon: {
         color: "white",
@@ -47,7 +49,7 @@ const LandingPage = ({ auth }) => {
                 <Container>
                     <div className={classes.containerNavigation}>
                         <img src={logo} alt="logo" className={classes.logo}></img>
-                        {auth ? <img src={Config.BASE_URL + "/api/user/images/default_user_small.png"} alt="avatar" style={{ height: "45px", width: "45px", borderRadius: "50%" }} /> : <AccountCircleIcon onClick={() => history.push("/sign-in")} className={classes.accountIcon}></AccountCircleIcon>}
+                        {auth ? <img src={Config.BASE_URL + "/images/default_user_small.png"} alt="avatar" style={{ height: "45px", width: "45px", borderRadius: "50%" }} /> : <AccountCircleIcon onClick={() => history.push("/sign-in")} className={classes.accountIcon}></AccountCircleIcon>}
                     </div>
                 </Container >
                 <div className="header-title">
@@ -55,66 +57,8 @@ const LandingPage = ({ auth }) => {
                     <span>stop looking. start finding with wpresidence</span>
                 </div>
             </header>
-            <Container style={{ marginTop: "20px", display: "flex", justifyContent: "space-between" }}>
-                <FormControl variant="outlined" style={{ margin: "8px" }}>
-                    <InputLabel id="demo-simple-select-required-label-1">Quận</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-required-label-1"
-                        // value={age}
-                        // onChange={handleChange}
-                        label="Quận"
-                        className={classes.select}
-                    >
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
-                    </Select>
-                </FormControl>
-                <FormControl variant="outlined" style={{ margin: "8px" }}>
-                    <InputLabel id="demo-simple-select-required-label-2">Huyện</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-required-label-2"
-                        // value={age}
-                        // onChange={handleChange}
-                        label="Huyện"
-                        className={classes.select}
-
-                    >
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
-                    </Select>
-                </FormControl>
-                <FormControl variant="outlined" style={{ margin: "8px" }}>
-                    <InputLabel id="demo-simple-select-required-label-3">Loại</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-required-label-3"
-                        // value={age}
-                        // onChange={handleChange}
-                        label="Loại"
-                        className={classes.select}
-                    >
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
-                    </Select>
-                </FormControl>
-                <FormControl variant="outlined" style={{ margin: "8px" }} >
-                    <InputLabel id="demo-simple-select-required-label-3">Số giường ngủ</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-required-label-3"
-                        // value={age}
-                        // onChange={handleChange}
-                        label="Số giường ngủ"
-                        className={classes.select}
-                    >
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
-                    </Select>
-                </FormControl>
-            </Container>
-            <ListItem></ListItem>
+            <Search></Search>
+            <ListItem Search={false}></ListItem>
         </div >
 
     )

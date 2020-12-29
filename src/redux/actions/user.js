@@ -35,7 +35,7 @@ export const getListAccount = () => {
 export const getListAccountSuccess = (result) => {
     return {
         type: Types.GET_LIST_ACCOUNT_SUCCESS,
-        listAccout: result
+        listAccount: result
     }
 }
 export const getListAccountFailed = (error) => {

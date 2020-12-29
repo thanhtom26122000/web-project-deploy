@@ -11,6 +11,7 @@ import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker
 } from "@material-ui/pickers";
+import Modal from "./Modal";
 const useStyles = makeStyles({
     textField: {
         "& .MuiOutlinedInput-root": {
@@ -29,6 +30,7 @@ const useStyles = makeStyles({
 })
 const AddProperty = ({ status }) => {
     const classes = useStyles()
+    const [loading, setLoading] = useState(false);
     const [input, setInput] = useState({
         state: "",
         district: "",
@@ -47,9 +49,9 @@ const AddProperty = ({ status }) => {
         title: "",
         description: "",
         features: [],
-        addressDetail: ""
+        addressDetail: "",
+        date: ""
     })
-    const [listCheckbox, setListCheckbox] = useState([])
     console.log("xxxx propety", input)
     const handleOnChange = (event, field, option) => {
         if (option === "number") {
@@ -70,7 +72,8 @@ const AddProperty = ({ status }) => {
         }
 
     }
-    const handleOnSubmit = (event) => {
+    const handleOnSubmit = async (event) => {
+        setLoading(true);
         let form = new FormData()
         event.preventDefault()
         for (let item in input) {
@@ -81,13 +84,30 @@ const AddProperty = ({ status }) => {
                     })
                 }
             } else {
-                form.append(`${item}`, input[item])
+                if (item.search("price") !== -1 && item !== "pricePer") {
+                    let number = parseInt(convertNumber(input[item]));
+                    console.log(typeof number)
+                    form.append(item, number)
+                } else {
+                    form.append(`${item}`, input[item])
+                }
             }
         }
-        return callApi({ url: "/api/real-estate/add-property", data: form, checkAuth: true, token: localStorage.getItem("_user") })
+        let xhr = await callApi({ url: "/api/real-estate/add-property", data: form, checkAuth: true, token: localStorage.getItem("_user") })
+        console.log("xhr", xhr)
+        if (xhr) {
+            if (xhr === "success") {
+                
+            }
+            setLoading(false);
+        }
+
+        console.log(xhr, "callApi add-property")
+
     }
     return (
         <form encType="multipart/form-data" onSubmit={(event) => handleOnSubmit(event)}>
+            <Modal show={loading}></Modal>
             <div style={{ padding: "20px 40px 0px 40px" }}>
                 <h2 style={{ fontWeight: "bold", fontSize: "40px" }}>Cho thuê nhà</h2>
                 <Grid container spacing={6} style={{ display: "flex" }}>
@@ -155,7 +175,7 @@ const AddProperty = ({ status }) => {
                             </Grid>
                             <Grid item xs={6}>
                                 <Autocomplete
-                                    options={ConfigInput.mapDistrict[input.state] ? ConfigInput.mapDistrict[input.state] : ["Hãy chọn tỉnh trước"]}
+                                    options={ConfigInput.mapDistrict[input.state] ? ConfigInput.mapDistrict[input.state] : []}
                                     inputValue={input.district ? input.district : ""}
                                     onInputChange={(event, value) => handleOnChange(event, "district", value)}
                                     renderInput={(params) => <TextField {...params} className={classes.textField} style={{ width: "90%" }} label="Quận/Huyện" variant="outlined" />}
@@ -167,6 +187,7 @@ const AddProperty = ({ status }) => {
                                     type="text"
                                     className={classes.textField}
                                     value={input["addressDetail"]}
+                                    onChange={(event) => setInput({ ...input, addressDetail: event.target.value })}
                                     style={{ width: "90%" }}>
                                 </TextField>
                             </Grid>
@@ -242,17 +263,25 @@ const AddProperty = ({ status }) => {
                                     rows={10}
                                     style={{ width: "95%" }}>
                                 </TextField>
-                                <MuiPickersUtilsProvider variant="outlined" utils={DateFnsUtils}>
-                                    <KeyboardDatePicker
-                                        margin="normal"
-                                        label="Date picker dialog"
-                                        format="MM/dd/yyyy"
-                                        // error={true}
-                                    // value={selectedDate}
-                                    // onChange={handleDateChange}
-                                    // variant="outlined"
-                                    />
-                                </MuiPickersUtilsProvider>
+                                <div style={{ display: "flex", marginBottom: "16px", alignItems: "center" }}>
+                                    <MuiPickersUtilsProvider variant="outlined" utils={DateFnsUtils}>
+                                        <KeyboardDatePicker
+                                            margin="normal"
+                                            label="Hiển thị tới ngày"
+                                            format="MM/dd/yyyy"
+                                            minDate={new Date().getTime()}
+                                            // error={true}
+                                            value={input["date"] ? input["date"] : new Date().getTime()}
+                                            onChange={(date) =>
+                                                setInput({
+                                                    ...input,
+                                                    date: date.getTime()
+                                                })
+                                            }
+                                        // variant="outlined"
+                                        />
+                                    </MuiPickersUtilsProvider>
+                                </div>
                             </Grid>
                         </Grid>
                         <ButtonCustom type="submit" >Save</ButtonCustom>
@@ -292,7 +321,7 @@ const AddProperty = ({ status }) => {
                     </Grid>
                 </Grid>
             </div>
-        </form>
+        </form >
     )
 }
-export default AddProperty
+export default React.memo(AddProperty)

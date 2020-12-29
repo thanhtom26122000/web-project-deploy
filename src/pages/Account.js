@@ -11,6 +11,7 @@ import AlertDialog from "../components/AlertDialog";
 import { connect } from "react-redux";
 import ListPropery from "../components/ListProperty";
 import ListAccount from "../components/ListAccount";
+import ListRealEstates from "../components/ListRealEstates";
 const Account = ({ userReducer }) => {
     const { url } = useRouteMatch()
     console.log("123 userReducer", userReducer)
@@ -27,18 +28,18 @@ const Account = ({ userReducer }) => {
                     {!userReducer.status && url === "/account/add-property" ? <AlertDialog></AlertDialog> : null}
                     {userReducer.typeAccount === 1 ? (
                         <Switch>
-                            <Route path={`/account/my-profile`} render={() => <Profile status={userReducer.status}></Profile>} >
+                            <Route exact path={`/account/my-profile`} render={() => <Profile status={userReducer.status}></Profile>} >
                             </Route>
-                            <Route path="/account/add-property" component={AddProperty}></Route>
+                            <Route exact path="/account/add-property" component={AddProperty}></Route>
                             <Route exact path="/account/favorites" component={Favorites}></Route>
-                            <Route path="/account/list-property" component={ListPropery}></Route>
+                            <Route exact path="/account/list-property" component={ListPropery}></Route>
                         </Switch>
                     ) :
                         (
                             <Switch>
-                                <Route path="/account/admin/add-property" component={AddProperty}></Route>
-                                <Route path="/account/admin/list-account" component={ListAccount}></Route>
-                                <Route path="/account/admin/list-real-estate" component={AddProperty}></Route>
+                                <Route exact path="/account/admin/add-property" component={AddProperty}></Route>
+                                <Route exact path="/account/admin/list-account" component={ListAccount}></Route>
+                                <Route exact path="/account/admin/list-real-estate" component={ListRealEstates}></Route>
                             </Switch>
                         )}
                 </Grid>

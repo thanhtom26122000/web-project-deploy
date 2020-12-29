@@ -26,7 +26,7 @@ const ListPropery = () => {
                 <Grid item xs={7} className={classes.rightTabContainer}>
                     <div style={{ marginBottom: "20px", fontSize: "18px", fontWeight: 500 }}>Thông tin nhà cho thuê</div>
                     <Grid container>
-
+                        <Grid item xs={8}></Grid>
                     </Grid>
                 </Grid>
             </Grid>

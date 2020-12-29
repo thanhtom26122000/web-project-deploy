@@ -51,3 +51,56 @@ export const getListFavoritesSuccess = (listRealEstate) => {
         listRealEstate: listRealEstate
     }
 }
+export const getListRealEstate = () => {
+    return {
+        type: Types.GET_LIST_REAL_ESTATES,
+    }
+}
+export const getListRealEstateSuccess = (listRealEstates) => {
+    return {
+        type: Types.GET_LIST_REAL_ESTATES_SUCCESS,
+        listRealEstate: listRealEstates
+    }
+}
+export const getListRealEstateFailed = (error) => {
+    return {
+        type: Types.GET_LIST_REAL_ESTATES_FAILED,
+        error: error
+    }
+}
+export const getProperty = (id) => {
+    return {
+        type: Types.GET_PROPERTY,
+        id: id
+    }
+}
+export const getPropertySuccess = (property) => {
+    return {
+        type: Types.GET_PROPERTY_SUCCESS,
+        property: property
+    }
+}
+export const getPropertyFailed = (error) => {
+    return {
+        type: Types.GET_PROPERTY_FAILED,
+        error: error
+    }
+}
+export const searchProperty = (query) => {
+    return {
+        type: Types.SEARCH_PROPERTY,
+        query: query
+    }
+}
+export const searchPropertySuccess = (listRealEstate) => {
+    return {
+        type: Types.SEARCH_PROPERTY_SUCCESS,
+        listRealEstate: listRealEstate
+    }
+}
+export const searchPropertyFailed = (error) => {
+    return {
+        type: Types.SEARCH_PROPERTY_FAILED,
+        error: error
+    }
+}

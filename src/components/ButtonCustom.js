@@ -8,7 +8,8 @@ const MyButton = styled(Button)({
     color: "#fff",
     padding: "16px 24px",
     borderRadius: "10px",
-    fontWeight: 600
+    fontWeight: 600,
+    // width: "100%"
 });
 
 export default function ButtonCustom(props) {

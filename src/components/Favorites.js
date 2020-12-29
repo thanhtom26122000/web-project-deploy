@@ -9,7 +9,7 @@ const Favorites = ({ realEstateReducer, getListFavorites = () => { } }) => {
     return (
         <div style={{ padding: "20px 40px 0px 40px" }}>
             <h2 style={{ fontWeight: "bold", fontSize: "40px" }}>Yêu thích</h2>
-            <CustomTable listRealEstate={realEstateReducer.listRealEstate}></CustomTable>
+            <CustomTable config = "tableFavo" rows={realEstateReducer.listRealEstate}></CustomTable>
         </div>
     )
 }

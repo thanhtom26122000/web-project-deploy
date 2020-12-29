@@ -6,7 +6,7 @@ const initState = {
     imagePath: "",
     status: "",
     typeAccount: null,
-    listAccout: [],
+    listAccount: [],
 }
 const userReducer = (state = initState, action) => {
     switch (action.type) {
@@ -26,7 +26,7 @@ const userReducer = (state = initState, action) => {
             return { ...state, loading: true }
         }
         case Types.GET_LIST_ACCOUNT_SUCCESS: {
-            return { ...state, loading: false, error: null, listAccout: [...action.listAccout] }
+            return { ...state, loading: false, error: null, listAccount: [...action.listAccount] }
         }
         case Types.GET_LIST_ACCOUNT_FAILED: {
             return { ...state, loading: false, error: action.error, }

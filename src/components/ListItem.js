@@ -6,10 +6,11 @@ import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 import HotelIcon from '@material-ui/icons/Hotel';
 import BathtubIcon from '@material-ui/icons/Bathtub';
 import { connect } from "react-redux"
-import { addFavorites, getListLandingPage } from "../redux/actions/action";
+import { addFavorites, getListLandingPage, searchProperty } from "../redux/actions/action";
 import { Size } from "../components/Icons"
 import ShareIcon from '@material-ui/icons/Share';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import { useLocation } from "react-router";
 const useStyles = makeStyles({
     container: {
         marginTop: "20px",
@@ -61,13 +62,26 @@ const useStyles = makeStyles({
         opacity: "0.6"
     }
 });
-const ListItem = ({ getListLandingPage = () => { }, realEstateReducer, addFavorites }) => {
+const ListItem = ({ getListLandingPage = () => { }, realEstateReducer, addFavorites, search, searchProperty = () => { } }) => {
     const classes = useStyles();
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.between(0, 780));
+    const query = new URLSearchParams(useLocation().search);
+    let queryUrl = {
+        state: query.get("state"),
+        district: query.get("district"),
+        bathroom: query.get("bathroom"),
+        price: query.get("price"),
+        typeRealEstate: query.get("typeRealEstate"),
+        size: query.get("size"),
+    }
     useEffect(() => {
-        getListLandingPage();
-    }, [getListLandingPage])
+        if (!search) {
+            getListLandingPage();
+        } else {
+            searchProperty(queryUrl)
+        }
+    }, [getListLandingPage, searchProperty])
     return (
         <Container className={classes.container} >
             <h1 style={{ textAlign: "center", color: "#222222" }}>Một số bất động sản</h1>
@@ -123,7 +137,7 @@ const ListItem = ({ getListLandingPage = () => { }, realEstateReducer, addFavori
                                             <div style={{ border: "1px solid #eef3f6", marginRight: "8px", padding: "4px", height: "30px", width: "30px", display: "flex", alignItems: "center", justifyContent: "center" }}>
                                                 <ShareIcon style={{ color: "#c2cbd9", fontSize: "14px" }}></ShareIcon>
                                             </div>
-                                            <div style={{ border: "1px solid #eef3f6", padding: "4px", height: "30px", width: "30px", display: "flex", alignItems: "center", justifyContent: "center" }} onClick = {() => addFavorites(el.id)}>
+                                            <div style={{ border: "1px solid #eef3f6", padding: "4px", height: "30px", width: "30px", display: "flex", alignItems: "center", justifyContent: "center" }} onClick={() => addFavorites(el.id)}>
                                                 <FavoriteBorderIcon style={{ color: "#c2cbd9", fontSize: "14px" }}></FavoriteBorderIcon>
                                             </div>
                                         </div>
@@ -148,7 +162,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getListLandingPage: () => dispatch(getListLandingPage()),
-        addFavorites: (id) => dispatch(addFavorites(id))
+        addFavorites: (id) => dispatch(addFavorites(id)),
+        searchProperty: (query) => dispatch(searchProperty(query))
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ListItem)

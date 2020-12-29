@@ -56,6 +56,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import ButtonCustom from './ButtonCustom';
 import { Button } from "@material-ui/core"
+import ConfigInput from '../ConfigInput';
+import Config from '../Config';
 
 const useStyles = makeStyles({
     table: {
@@ -64,44 +66,47 @@ const useStyles = makeStyles({
     tableContainer: {
         borderRadius: "20px",
         padding: "0px 20px"
+    },
+    tableCellHover: {
+        "&:hover": {
+            backgroundColor: "#f3f3f3"
+        }
     }
 
 });
-let customRows = [
-    { id: "12333", phone: "12333123", cardId: "123112323", address: "test address" },
-    { id: "12333", phone: "12333123", cardId: "123112323", address: "test address" },
-    { id: "12333", phone: "12333123", cardId: "123112323", address: "test address" },
-
-]
-const CustomTable = ({ rows }) => {
+const CustomTable = ({ rows, config }) => {
     console.log(rows, "xxx test1")
+    console.log("xxxx", config, "1234", ConfigInput.mapListHeadTable[config])
     const classes = useStyles();
     return (
         <TableContainer className={classes.tableContainer} component={Paper}>
             <Table className={classes.table} aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        <TableCell align="left">Id</TableCell>
-                        <TableCell align="left">Số điện thoại</TableCell>
-                        <TableCell align="left">Số chứng minh thư</TableCell>
-                        <TableCell align="left">Địa chi</TableCell>
-                        <TableCell align="center">Hành động</TableCell>
+                        {ConfigInput.mapListHeadTable[config].map(el => (
+                            <TableCell key={el.label} align={el.align}>{el.label}</TableCell>
+                        ))}
                     </TableRow>
-
                 </TableHead>
                 <TableBody>
-                    {customRows && customRows.length > 0 ? customRows.map(el => {
+                    {rows && rows.length > 0 ? rows.map((el, index) => {
                         return (
-                            <TableRow key={el.id}>
-                                <TableCell align="left">
-                                    {el.id}
-                                </TableCell>
-                                <TableCell align="left">{el.phone}</TableCell>
-                                <TableCell align="left">{el.cardId}</TableCell>
-                                <TableCell align="left" color="#ae8c63">{el.address}</TableCell>
-                                <TableCell align="center" >
-                                    <Button color="primary" variant="contained" style={{ marginRight: "16px" }}>Duyệt tài khoản</Button>
-                                    <Button color="secondary" variant="contained">Từ chối</Button>
+                            <TableRow key={el.id} className={classes.tableCellHover} >
+                                {config === "tableAccount" ? null : <TableCell align="left" style={{ padding: "40px" }} >
+                                    <div style={{ display: "flex", alignItems: "center" }}>
+                                        <img src={Config.BASE_URL + el.imagePath[0]} style={{ height: "70px", width: "105px" }} alt={"img" + index}></img>
+                                        <div style={{ display: "flex", flexDirection: "column", marginLeft: "16px" }}>
+                                            <span style={{ fontSize: "16px", color: "#222222" }}>{el.title}</span>
+                                            <span style={{ fontSize: "14px", color: "#808191" }}>{el.state}, {el.district}</span>
+                                        </div>
+                                    </div>
+                                </TableCell>}
+                                {ConfigInput.mapCellTable[config].map(cell => {
+                                    return <TableCell align={cell.align}>{el[cell.label]}</TableCell>
+                                })}
+                                <TableCell align="center">
+                                    <Button color="primary" variant="contained" style={{ marginRight: "16px" }}>Đồng ý</Button>
+                                    <Button color="secondary" variant="contained">Xoá</Button>
                                 </TableCell>
                             </TableRow>
                         )

@@ -1,11 +1,9 @@
 import AddBoxOutlinedIcon from '@material-ui/icons/AddBoxOutlined';
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
-import AssessmentOutlinedIcon from '@material-ui/icons/AssessmentOutlined';
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 class ConfigInput {
     static listControlTabMember = [
-        { path: "/account/dashboard", name: "Thống kê", icon: <AssessmentOutlinedIcon /> },
         { path: "/account/my-profile", name: "Thông tin cá nhân", icon: <AccountCircleOutlinedIcon /> },
         { path: "/account/add-property", name: "Cho thuê nhà", icon: <AddBoxOutlinedIcon /> },
         { path: "/account/favorites", name: "Yêu thích", icon: <FavoriteBorderOutlinedIcon /> },
@@ -15,8 +13,50 @@ class ConfigInput {
         { path: "/account/admin/list-account", name: "Xác nhận tài khoản", icon: <AccountCircleOutlinedIcon /> },
         { path: "/account/admin/list-real-estate", name: "Duyệt các phòng", icon: <HomeOutlinedIcon></HomeOutlinedIcon> },
         { path: "/account/admin/add-property", name: "Cho thuê nhà", icon: <AddBoxOutlinedIcon /> },
-
     ]
+    static mapListHeadTable = {
+        "tableAccount": [
+            { align: "left", label: "Id" },
+            { align: "left", label: "Số điện thoại" },
+            { align: "left", label: "Số chứng minh thư" },
+            { align: "left", label: "Địa chỉ" },
+            { align: "center", label: "Hành động" },
+        ],
+        "tableFavo": [
+            { align: "left", label: "Phòng" },
+            { align: "left", label: "Loại" },
+            { align: "left", label: "Trạng thái" },
+            { align: "left", label: "Giá" },
+            { align: "center", label: "Hành động" },
+        ],
+        "tableRealEstates": [
+            { align: "left", label: "Phòng" },
+            { align: "left", label: "Loại" },
+            { align: "left", label: "Trạng thái" },
+            { align: "left", label: "Giá" },
+            { align: "center", label: "Hành động" },
+
+        ]
+    };
+    static mapCellTable = {
+        "tableAccount": [
+            { label: "id", align: "left" },
+            { label: "phone", align: "left" },
+            { label: "cardId", align: "left" },
+            { label: "address", align: "left" },
+        ],
+        "tableFavo": [
+            { label: "typeRealEstate", align: "left" },
+            { label: "status", align: "left" },
+            { label: "price", align: "left" },
+        ],
+        "tableRealEstates": [
+            { label: "typeRealEstate", align: "left" },
+            { label: "status", align: "left" },
+            { label: "price", align: "left" },
+
+        ]
+    }
     static listInforProfile = [
         { label: "Họ", type: "text", stateName: "firstName" },
         { label: "Tên", type: "text", stateName: "lastName" },
@@ -35,6 +75,15 @@ class ConfigInput {
         { label: "Mật khẩu mới", type: "password" },
         { label: "Nhập lại mật khẩu", type: "password" },
     ]
+    static propertyInformationDetail = [
+        { label: "Id:", value: "id" },
+        { label: "Giá:", value: "price" },
+        { label: "Diện tích:", value: "size" },
+        { label: "Phòng tắm:", value: "bathroom" },
+        { label: "Phòng ngủ:", value: "bedroom" },
+        { label: "Chung chủ:", value: "isPrivate" },
+        { label: "Phòng bếp:", value: "kitchenDetail" },
+    ]
     static propertyDescriptionInput = [
         { label: "*Tiêu đề (Bắt buộc)", type: "text", nameState: "title" },
         { label: "Miêu tả", type: "text", nameState: "description" }
@@ -46,6 +95,7 @@ class ConfigInput {
         { label: "Tiền nước (Đồng/m3)", type: "number", nameState: "waterPrice" },
         { label: "Loại", type: "select", value: ["Phòng trọ", "Chung cư mini", "Nhà nguyên căn", "Chung cư nguyên căn"], nameState: "typeRealEstate" }
     ]
+    static selectPrice = ["Từ 15m2-25m2", "Từ 25m2-40m2", "Từ 40m2-50m2", "Từ 50m2 trở lên",]
     static listState = ["An Giang", "Bà Rịa – Vũng Tàu", "Bình Dương", "Bình Phước", "Bình Thuận", "Bình Định", "Bạc Liêu", "Bắc Giang", "Bắc Kạn", "Bắc Ninh", "Bến Tre", "Cao Bằng", "Cà Mau", "Cần Thơ", "Gia Lai", "Hà Giang", "Hà Nam", "Hà Nội", "Hà Tĩnh", "Hòa Bình", "Hưng Yên", "Hải Dương", "Hải Phòng", "Hậu Giang", "Hồ Chí Minh", "Khánh Hòa", "Kiên Giang", "Kon Tum", "Lai Châu", "Long An", "Lào Cai", "Lâm Đồng", "Lạng Sơn", "Nam Định", "Nghệ An", "Ninh Bình", "Ninh Thuận", "Phú Thọ", "Phú Yên", "Quảng Bình", "Quảng Nam", "Quảng Ngãi", "Quảng Ninh", "Quảng Trị", "Sóc Trăng", "Sơn La", "Thanh Hóa", "Thái Bình", "Thái Nguyên", "Thừa Thiên - Huế", "Tiền Giang", "Trà Vinh", "Tuyên Quang", "Tây Ninh", "Vĩnh Long", "Vĩnh Phúc", "Yên Bái", "Điện Biên", "Đà Nẵng", "Đăk Nông", "Đắk Lắk", "Đồng Nai", "Đồng Tháp"]
     static mapDistrict = {
         "Hà Nội": [

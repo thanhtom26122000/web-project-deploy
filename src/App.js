@@ -10,6 +10,8 @@ import { checkIsLogIn } from './redux/actions/auth';
 import { connect } from 'react-redux';
 import Modal from "./components/Modal"
 import ReactGA from 'react-ga';
+import Property from './pages/Property';
+import ListSearch from './components/ListSearch';
 const App = ({ checkIsLogIn = () => { }, authReducer }) => {
     useEffect(() => {
         console.log("123")
@@ -31,7 +33,9 @@ const App = ({ checkIsLogIn = () => { }, authReducer }) => {
                 <Route exact path="/">
                     <LandingPage auth={authReducer.isLogin}></LandingPage>
                 </Route>
+                <Route exact path="/property/:id" component={Property}></Route>
                 <PrivateRoute path="/account/:child" pathRedirect="/sign-in" component={Account} auth={authReducer.isLogin}></PrivateRoute>
+                <Route exact path="/advanced-search" component={ListSearch}></Route>
                 <AuthRoute exact path="/sign-in" component={SignIn} auth={authReducer.isLogin}></AuthRoute>
                 <AuthRoute exact path="/sign-up" component={SignUp} auth={authReducer.isLogin}></AuthRoute>
             </Switch>
