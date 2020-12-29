@@ -50,7 +50,7 @@ const useStyles = makeStyles({
 
     }
 })
-const Property = ({ realEstateReducer, getProperty = () => { } }) => {
+const Property = ({ realEstateReducer, getProperty = () => { }, auth }) => {
     let params = useParams()
     let offset = params.id.lastIndexOf("-")
     let id = params.id.substring(offset + 1, params.id.length)
@@ -63,7 +63,7 @@ const Property = ({ realEstateReducer, getProperty = () => { } }) => {
     const [valueIndex, setValueIndex] = useState(0);
     const [indexImage, setIndexImage] = useState(0);
     const [open, setOpen] = useState(false);
-    console.log("xxx value index", valueIndex, open)
+    console.log("xxx value index", auth)
 
     // console.log("price", convertNumber(property.price.toString()))
     return (

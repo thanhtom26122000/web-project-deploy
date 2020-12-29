@@ -62,7 +62,7 @@ const useStyles = makeStyles({
         opacity: "0.6"
     }
 });
-const ListItem = ({ getListLandingPage = () => { }, realEstateReducer, addFavorites, search, searchProperty = () => { } }) => {
+const ListItems = ({ getListLandingPage = () => { }, realEstateReducer, addFavorites, search, searchProperty = () => { } }) => {
     const classes = useStyles();
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.between(0, 780));
@@ -86,7 +86,7 @@ const ListItem = ({ getListLandingPage = () => { }, realEstateReducer, addFavori
         <Container className={classes.container} >
             <h1 style={{ textAlign: "center", color: "#222222" }}>Một số bất động sản</h1>
             <Grid container spacing={6}>
-                {realEstateReducer.listRealEstate.map(el => {
+                {realEstateReducer.listRealEstate && realEstateReducer.listRealEstate.length > 0 ? realEstateReducer.listRealEstate.map(el => {
                     return (
                         <Grid item xs={isMobile ? 12 : 4} key={el.id}>
                             <div className={classes.itemContainer}>
@@ -148,7 +148,7 @@ const ListItem = ({ getListLandingPage = () => { }, realEstateReducer, addFavori
                             </div>
                         </Grid>
                     )
-                })}
+                }) : null}
             </Grid>
 
         </Container >
@@ -166,4 +166,4 @@ const mapDispatchToProps = (dispatch) => {
         searchProperty: (query) => dispatch(searchProperty(query))
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(ListItem)
+export default connect(mapStateToProps, mapDispatchToProps)(ListItems)

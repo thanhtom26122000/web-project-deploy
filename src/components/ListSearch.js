@@ -2,7 +2,7 @@ import { Button, Container, makeStyles, Slider, TextField } from "@material-ui/c
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import Header from "./Header";
-import ListItem from "./ListItem";
+import ListItems from "./ListItem";
 import Search from "./Search";
 const useStyles = makeStyles({
     accountIcon: {
@@ -32,7 +32,7 @@ const useStyles = makeStyles({
         minWidth: "200px"
     }
 })
-const ListSearch = () => {
+const ListSearch = ({ image, typeAccount }) => {
     const classes = useStyles();
     useEffect(() => {
 
@@ -40,11 +40,9 @@ const ListSearch = () => {
 
     return (
         <div style={{ backgroundColor: "#f7f7f7" }}>
-            <Header></Header>
-            <Container style={{ marginTop: "20px", display: "flex", justifyContent: "space-between" }}>
-                <Search></Search>
-            </Container>
-            <ListItem search={true}></ListItem>
+            <Header image={image} typeAccount={typeAccount}></Header>
+            <Search></Search>
+            <ListItems search={true}></ListItems>
         </div>
 
     )

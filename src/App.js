@@ -12,9 +12,9 @@ import Modal from "./components/Modal"
 import ReactGA from 'react-ga';
 import Property from './pages/Property';
 import ListSearch from './components/ListSearch';
-const App = ({ checkIsLogIn = () => { }, authReducer }) => {
+const App = ({ checkIsLogIn = () => { }, authReducer, imagePath, typeAccount }) => {
     useEffect(() => {
-        console.log("123")
+        console.log("ty")
         ReactGA.initialize("UA-186055766-1");
         ReactGA.pageview("/")
     })
@@ -27,15 +27,20 @@ const App = ({ checkIsLogIn = () => { }, authReducer }) => {
             <Modal show={true}></Modal>
         )
     }
+    console.log(typeAccount, "typeAccount")
     return (
         <div style={{ height: "100%" }}>
             <Switch>
                 <Route exact path="/">
-                    <LandingPage auth={authReducer.isLogin}></LandingPage>
+                    <LandingPage typeAccount={typeAccount} image={imagePath} auth={authReducer.isLogin}></LandingPage>
                 </Route>
-                <Route exact path="/property/:id" component={Property}></Route>
+                <Route exact path="/property/:id" >
+                    <Property auth={authReducer.isLogin}></Property>
+                </Route>
                 <PrivateRoute path="/account/:child" pathRedirect="/sign-in" component={Account} auth={authReducer.isLogin}></PrivateRoute>
-                <Route exact path="/advanced-search" component={ListSearch}></Route>
+                <Route exact path="/advanced-search">
+                    <ListSearch typeAccount={typeAccount} image={imagePath}></ListSearch>
+                </Route>
                 <AuthRoute exact path="/sign-in" component={SignIn} auth={authReducer.isLogin}></AuthRoute>
                 <AuthRoute exact path="/sign-up" component={SignUp} auth={authReducer.isLogin}></AuthRoute>
             </Switch>
@@ -45,6 +50,9 @@ const App = ({ checkIsLogIn = () => { }, authReducer }) => {
 }
 const mapStateToProps = (state) => ({
     authReducer: state.authReducer,
+    imagePath: state.userReducer.imagePath,
+    typeAccount: state.userReducer.typeAccount,
+
 })
 const mapDispatchToProps = (dispatch) => ({
     checkIsLogIn: () => dispatch(checkIsLogIn())

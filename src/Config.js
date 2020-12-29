@@ -1,4 +1,6 @@
 class Config {
-    static BASE_URL = "https://fathomless-hamlet-72428.herokuapp.com";
+    static BASE_URL = "http://localhost:8080";
+    static MEMBER_ACCOUNT = 1;
+    static ADMIN_ACCOUNT = 2;
 }
 export default Config
